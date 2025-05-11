@@ -1,0 +1,189 @@
+const { v4: uuidv4 } = require('uuid');
+const axios = require('axios');
+const { Segment, CommunicationLog, Customer } = require('../models/mongoClient');
+const { evaluateSegmentRules } = require('../utils/segmentRuleEvaluator');
+const vendorAPI = require('../utils/vendorAPI'); // For simulateSendMessageToVendor
+
+const sendCampaign = async (req, res) => {
+    try {
+        const { segment_id, message_template } = req.body;
+        if (!segment_id || !message_template) {
+            return res.status(400).json({ error: "Segment ID and message template are required." });
+        }
+
+        const segment = await Segment.findById(segment_id);
+        if (!segment) {
+            return res.status(404).json({ error: "Segment not found." });
+        }
+
+        const audience = await evaluateSegmentRules(segment.rules);
+        if (!audience || audience.length === 0) {
+            return res.status(400).json({ error: "Segment has no audience. Campaign not sent." });
+        }
+
+        const campaignId = uuidv4();
+        const initialRecipients = audience.map(customer => ({
+            customer_id: customer.customer_id, // Store external customer_id
+            customer_mongo_id: customer._id,   // Store internal MongoDB _id
+            status: "PENDING",
+            timestamp: null
+        }));
+
+        const newCampaignLog = new CommunicationLog({
+            campaign_id: campaignId,
+            segment_id: segment._id,
+            message_template,
+            recipients: initialRecipients,
+            status_counts: { PENDING: audience.length, SENT: 0, FAILED: 0 },
+            createdBy: req.user._id
+        });
+        await newCampaignLog.save();
+
+        res.status(202).json({ 
+            message: "Campaign accepted and processing initiated.", 
+            campaign_id: campaignId,
+            audienceSize: audience.length
+        }); // Respond quickly, then process
+
+        // Asynchronously process sending and updating statuses
+        (async () => {
+            for (const customer of audience) {
+                try {
+                    // 1. Simulate calling the vendor API to dispatch the message
+                    await vendorAPI.simulateSendMessageToVendor(customer.customer_id, message_template);
+
+                    // 2. Simulate vendor callback: Determine success/failure and "call" our own delivery receipt endpoint
+                    const deliverySuccess = Math.random() < 0.9; // 90% success rate
+                    const deliveryStatus = deliverySuccess ? "SENT" : "FAILED";
+                    
+                    // This axios call simulates an external vendor calling back to our API.
+                    // In a real scenario, the vendor would make this call.
+                    // For simulation, our own server makes the call to its own endpoint.
+                    // Ensure SERVER_BASE_URL is correctly set in .env
+                    await axios.post(`${process.env.SERVER_BASE_URL}/api/campaigns/delivery-receipt`, {
+                        campaign_id: campaignId,
+                        customer_id: customer.customer_id, // External ID
+                        status: deliveryStatus,
+                        timestamp: new Date().toISOString()
+                    });
+                } catch (error) {
+                    console.error(`Error processing campaign for customer ${customer.customer_id} in campaign ${campaignId}:`, error.message);
+                    // If the axios call to delivery-receipt fails, we should log it or handle it.
+                    // For now, update directly as a fallback if the internal call fails.
+                    try {
+                         await CommunicationLog.updateOne(
+                            { campaign_id: campaignId, "recipients.customer_id": customer.customer_id },
+                            {
+                                $set: {
+                                    "recipients.$.status": "FAILED",
+                                    "recipients.$.timestamp": new Date()
+                                },
+                                $inc: { "status_counts.FAILED": 1, "status_counts.PENDING": -1 }
+                            }
+                        );
+                    } catch (dbError) {
+                         console.error(`Failed to directly update status for ${customer.customer_id} after error:`, dbError);
+                    }
+                }
+            }
+            console.log(`Campaign ${campaignId} processing finished.`);
+        })();
+
+    } catch (error) {
+        console.error("Error sending campaign:", error);
+        res.status(500).json({ error: "Failed to send campaign.", details: error.message });
+    }
+};
+
+const updateDeliveryStatus = async (req, res) => {
+    try {
+        const { campaign_id, customer_id, status, timestamp } = req.body;
+        if (!campaign_id || !customer_id || !status) {
+            return res.status(400).json({ error: "Campaign ID, Customer ID, and Status are required." });
+        }
+
+        const validStatuses = ["SENT", "FAILED", "DELIVERED", "OPENED"]; // Add more if needed
+        if (!validStatuses.includes(status.toUpperCase())) {
+            return res.status(400).json({ error: `Invalid status. Must be one of: ${validStatuses.join(', ')}` });
+        }
+        
+        const logEntry = await CommunicationLog.findOne({ campaign_id: campaign_id });
+        if (!logEntry) {
+            return res.status(404).json({ error: "Campaign log not found."});
+        }
+
+        const recipientIndex = logEntry.recipients.findIndex(r => r.customer_id === customer_id && r.status === "PENDING");
+        if (recipientIndex === -1) {
+            // If not PENDING, it might be an update for an already processed one, or an error.
+            // For now, let's just log if already processed, or error if not found at all.
+            const existingRecipient = logEntry.recipients.find(r => r.customer_id === customer_id);
+            if (!existingRecipient) return res.status(404).json({ error: `Customer ${customer_id} not found in campaign ${campaign_id} recipients.` });
+            // console.log(`Status for customer ${customer_id} in campaign ${campaign_id} was already ${existingRecipient.status}. New status: ${status}. Ignoring or re-processing based on logic needed.`);
+            // For simplicity, we only update if it was PENDING. More complex logic can be added.
+             return res.status(409).json({ error: `Status for customer ${customer_id} already processed or not in PENDING state.` });
+        }
+
+
+        const updateQuery = {
+            $set: {
+                [`recipients.${recipientIndex}.status`]: status.toUpperCase(),
+                [`recipients.${recipientIndex}.timestamp`]: timestamp ? new Date(timestamp) : new Date()
+            },
+            $inc: {
+                [`status_counts.${status.toUpperCase()}`]: 1,
+                "status_counts.PENDING": -1
+            }
+        };
+        
+        const result = await CommunicationLog.updateOne(
+            { campaign_id: campaign_id, "recipients.customer_id": customer_id },
+             updateQuery
+        );
+
+        if (result.matchedCount === 0) {
+             return res.status(404).json({ error: `Customer ${customer_id} not found or already updated in campaign ${campaign_id}.` });
+        }
+        if (result.modifiedCount === 0 && result.matchedCount > 0) {
+             return res.status(200).json({ message: "Delivery status for customer was already up-to-date."});
+        }
+
+        res.status(200).json({ message: "Delivery status updated successfully." });
+    } catch (error) {
+        console.error("Error updating delivery status:", error);
+        res.status(500).json({ error: "Failed to update delivery status.", details: error.message });
+    }
+};
+
+
+const getCampaignHistory = async (req, res) => {
+    try {
+        // For employees, only show campaigns they created. Admins see all.
+        const query = req.user.role === 'admin' ? {} : { createdBy: req.user._id };
+        
+        const campaigns = await CommunicationLog.find(query)
+            .populate('segment_id', 'name')
+            .populate('createdBy', 'displayName email')
+            .sort({ createdAt: -1 });
+
+        const history = campaigns.map(log => ({
+            campaign_id: log.campaign_id,
+            segment_name: log.segment_id ? log.segment_id.name : 'N/A',
+            message_template: log.message_template,
+            audience_size: log.recipients.length,
+            status_counts: log.status_counts,
+            created_at: log.createdAt,
+            created_by: log.createdBy ? log.createdBy.displayName : 'N/A'
+        }));
+
+        res.status(200).json(history);
+    } catch (error) {
+        console.error("Error fetching campaign history:", error);
+        res.status(500).json({ error: "Failed to retrieve campaign history.", details: error.message });
+    }
+};
+
+module.exports = {
+    sendCampaign,
+    updateDeliveryStatus,
+    getCampaignHistory
+};
