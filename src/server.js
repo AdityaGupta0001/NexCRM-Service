@@ -30,6 +30,9 @@ if (!process.env.SESSION_SECRET) {
     console.error("FATAL ERROR: SESSION_SECRET is not set in .env file.");
     process.exit(1);
 }
+
+app.set('trust proxy', 1);
+
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
