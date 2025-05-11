@@ -6,8 +6,8 @@ const vendorAPI = require('../utils/vendorAPI'); // For simulateSendMessageToVen
 
 const sendCampaign = async (req, res) => {
     try {
-        const { segment_id, message_template } = req.body;
-        if (!segment_id || !message_template) {
+        const { segment_id, message_template } = req.body; // Added campaign_subject
+        if (!segment_id || !message_template) { // Added campaign_subject check
             return res.status(400).json({ error: "Segment ID and message template are required." });
         }
 
@@ -16,15 +16,15 @@ const sendCampaign = async (req, res) => {
             return res.status(404).json({ error: "Segment not found." });
         }
 
-        const audience = await evaluateSegmentRules(segment.rules);
+        const audience = await evaluateSegmentRules(segment.rules); // audience is an array of Customer documents
         if (!audience || audience.length === 0) {
             return res.status(400).json({ error: "Segment has no audience. Campaign not sent." });
         }
 
         const campaignId = uuidv4();
         const initialRecipients = audience.map(customer => ({
-            customer_id: customer.customer_id, // Store external customer_id
-            customer_mongo_id: customer._id,   // Store internal MongoDB _id
+            customer_id: customer.customer_id,
+            customer_mongo_id: customer._id,
             status: "PENDING",
             timestamp: null
         }));
@@ -32,61 +32,82 @@ const sendCampaign = async (req, res) => {
         const newCampaignLog = new CommunicationLog({
             campaign_id: campaignId,
             segment_id: segment._id,
-            message_template,
+            message_template, // You might want to store subject here too
             recipients: initialRecipients,
             status_counts: { PENDING: audience.length, SENT: 0, FAILED: 0 },
-            createdBy: req.user._id
+            createdBy: req.user._id // Assuming req.user is populated by authentication middleware
         });
         await newCampaignLog.save();
 
-        res.status(202).json({ 
-            message: "Campaign accepted and processing initiated.", 
+        res.status(202).json({
+            message: "Campaign accepted and processing initiated.",
             campaign_id: campaignId,
             audienceSize: audience.length
-        }); // Respond quickly, then process
+        });
 
         // Asynchronously process sending and updating statuses
         (async () => {
-            for (const customer of audience) {
-                try {
-                    // 1. Simulate calling the vendor API to dispatch the message
-                    await vendorAPI.simulateSendMessageToVendor(customer.customer_id, message_template);
+            for (const customer of audience) { // customer here is a full Customer document
+                let deliveryStatusForCallback;
+                let vendorDispatchSuccessful = false;
 
-                    // 2. Simulate vendor callback: Determine success/failure and "call" our own delivery receipt endpoint
-                    const deliverySuccess = Math.random() < 0.9; // 90% success rate
-                    const deliveryStatus = deliverySuccess ? "SENT" : "FAILED";
-                    
-                    // This axios call simulates an external vendor calling back to our API.
-                    // In a real scenario, the vendor would make this call.
-                    // For simulation, our own server makes the call to its own endpoint.
+                try {
+                    // 1. Call the vendor API to dispatch the message (email)
+                    // Personalize message_template if needed, e.g., message_template.replace('{{name}}', customer.name)
+                    const personalizedMessage = message_template.replace(/{{name}}/gi, customer.name || 'Valued Customer');
+
+                    // The customer object from 'audience' should have 'email' and 'name'
+                    const vendorResponse = await vendorAPI.sendMessageToVendor(customer, personalizedMessage);
+
+                    if (vendorResponse.status === "DISPATCH_SUCCESSFUL") {
+                        deliveryStatusForCallback = "SENT"; // Assume SENT if Brevo accepted it for now
+                        vendorDispatchSuccessful = true;
+                    } else {
+                        // This covers "DISPATCH_FAILED" and "FAILED_NO_EMAIL"
+                        deliveryStatusForCallback = "FAILED";
+                        console.warn(`Vendor dispatch failed for customer ${customer.customer_id}: ${vendorResponse.error}`);
+                    }
+
+                } catch (dispatchError) {
+                    // Catch any unexpected errors from sendMessageToVendor itself
+                    console.error(`Critical error dispatching message for customer ${customer.customer_id}:`, dispatchError);
+                    deliveryStatusForCallback = "FAILED";
+                }
+                
+                // 2. Simulate vendor callback (or direct update if our internal callback fails)
+                // This part remains largely the same, but the 'deliveryStatusForCallback' is now based on Brevo's response
+                try {
                     // Ensure SERVER_BASE_URL is correctly set in .env
+                    // This simulates an external vendor calling back to our API.
                     await axios.post(`${process.env.SERVER_BASE_URL}/api/campaigns/delivery-receipt`, {
                         campaign_id: campaignId,
-                        customer_id: customer.customer_id, // External ID
-                        status: deliveryStatus,
+                        customer_id: customer.customer_id,
+                        status: deliveryStatusForCallback,
                         timestamp: new Date().toISOString()
                     });
-                } catch (error) {
-                    console.error(`Error processing campaign for customer ${customer.customer_id} in campaign ${campaignId}:`, error.message);
-                    // If the axios call to delivery-receipt fails, we should log it or handle it.
-                    // For now, update directly as a fallback if the internal call fails.
+                } catch (callbackError) {
+                    console.error(`Error simulating delivery-receipt callback for customer ${customer.customer_id} in campaign ${campaignId}:`, callbackError.message);
+                    // Fallback: Update CommunicationLog directly if the callback simulation fails
                     try {
-                         await CommunicationLog.updateOne(
+                        await CommunicationLog.updateOne(
                             { campaign_id: campaignId, "recipients.customer_id": customer.customer_id },
                             {
                                 $set: {
-                                    "recipients.$.status": "FAILED",
+                                    "recipients.$.status": deliveryStatusForCallback, // Use determined status
                                     "recipients.$.timestamp": new Date()
                                 },
-                                $inc: { "status_counts.FAILED": 1, "status_counts.PENDING": -1 }
+                                $inc: { 
+                                    [deliveryStatusForCallback === "SENT" ? "status_counts.SENT" : "status_counts.FAILED"]: 1, 
+                                    "status_counts.PENDING": -1 
+                                }
                             }
                         );
                     } catch (dbError) {
-                         console.error(`Failed to directly update status for ${customer.customer_id} after error:`, dbError);
+                        console.error(`Failed to directly update status for ${customer.customer_id} after callback error:`, dbError);
                     }
                 }
             }
-            console.log(`Campaign ${campaignId} processing finished.`);
+            console.log(`Campaign ${campaignId} email dispatch processing finished.`);
         })();
 
     } catch (error) {
