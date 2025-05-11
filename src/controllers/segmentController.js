@@ -8,7 +8,7 @@ const createSegment = async (req, res) => {
             return res.status(400).json({ error: "Segment name and rules are required." });
         }
 
-        // Validate rules structure roughly (more specific validation can be added)
+        // Validate rules structure roughly
         if (typeof rules !== 'object' || !rules.logic || !Array.isArray(rules.conditions)) {
              return res.status(400).json({ error: "Invalid rules structure." });
         }
@@ -73,7 +73,6 @@ const getSegmentDetails = async (req, res) => {
         if (!segment) {
             return res.status(404).json({ error: "Segment not found." });
         }
-        // Add role-based access check if employees can only see their own segments
         // if (req.user.role === 'employee' && segment.createdBy.toString() !== req.user._id.toString()) {
         //     return res.status(403).json({ error: "Access denied to this segment." });
         // }

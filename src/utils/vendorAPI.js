@@ -1,10 +1,8 @@
-// /utils/vendorAPI.js
-const SibApiV3Sdk = require('sib-api-v3-sdk'); // Corrected require statement
+const SibApiV3Sdk = require('sib-api-v3-sdk');
 
-// Configure Brevo API client
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKey = defaultClient.authentications['api-key'];
-apiKey.apiKey = process.env.BREVO_API_KEY || 'YOUR_BREVO_API_KEY'; // IMPORTANT: Use environment variable
+apiKey.apiKey = process.env.BREVO_API_KEY || 'YOUR_BREVO_API_KEY';
 
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
@@ -32,7 +30,6 @@ async function sendMessageToVendor(customer, htmlContent) {
         console.log(`Email dispatch to Brevo successful for customer ${customer.customer_id}. Brevo Response: ${JSON.stringify(data)}`);
         return { status: "DISPATCH_SUCCESSFUL", customerId: customer.customer_id, brevoResponse: data };
     } catch (error) {
-        // Log the full error structure for better debugging, especially Brevo API errors
         let errorMessage = error.message;
         if (error.response && error.response.body && error.response.body.message) { // Brevo specific error message
             errorMessage = `Brevo API Error: ${error.response.body.message} (Code: ${error.response.body.code})`;

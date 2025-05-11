@@ -19,7 +19,7 @@ function configurePassport(passport) {
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL: process.env.GOOGLE_CALLBACK_URL, // Should be like http://localhost:3000/api/auth/google/callback
+        callbackURL: process.env.GOOGLE_CALLBACK_URL,
         scope: ["profile", "email"], // 'scope' is deprecated, use 'scope: ['profile', 'email']' if needed, but usually set in authenticate call
       },
       async (accessToken, refreshToken, profile, done) => {

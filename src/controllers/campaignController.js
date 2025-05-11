@@ -2,12 +2,11 @@ const { v4: uuidv4 } = require('uuid');
 const axios = require('axios');
 const { Segment, CommunicationLog, Customer } = require('../models/mongoClient');
 const { evaluateSegmentRules } = require('../utils/segmentRuleEvaluator');
-const vendorAPI = require('../utils/vendorAPI'); // For simulateSendMessageToVendor
-
+const vendorAPI = require('../utils/vendorAPI');
 const sendCampaign = async (req, res) => {
     try {
-        const { segment_id, message_template } = req.body; // Added campaign_subject
-        if (!segment_id || !message_template) { // Added campaign_subject check
+        const { segment_id, message_template } = req.body;
+        if (!segment_id || !message_template) {
             return res.status(400).json({ error: "Segment ID and message template are required." });
         }
 
@@ -16,7 +15,7 @@ const sendCampaign = async (req, res) => {
             return res.status(404).json({ error: "Segment not found." });
         }
 
-        const audience = await evaluateSegmentRules(segment.rules); // audience is an array of Customer documents
+        const audience = await evaluateSegmentRules(segment.rules);
         if (!audience || audience.length === 0) {
             return res.status(400).json({ error: "Segment has no audience. Campaign not sent." });
         }
@@ -32,10 +31,10 @@ const sendCampaign = async (req, res) => {
         const newCampaignLog = new CommunicationLog({
             campaign_id: campaignId,
             segment_id: segment._id,
-            message_template, // You might want to store subject here too
+            message_template,
             recipients: initialRecipients,
             status_counts: { PENDING: audience.length, SENT: 0, FAILED: 0 },
-            createdBy: req.user._id // Assuming req.user is populated by authentication middleware
+            createdBy: req.user._id
         });
         await newCampaignLog.save();
 
@@ -45,22 +44,17 @@ const sendCampaign = async (req, res) => {
             audienceSize: audience.length
         });
 
-        // Asynchronously process sending and updating statuses
         (async () => {
-            for (const customer of audience) { // customer here is a full Customer document
+            for (const customer of audience) { 
                 let deliveryStatusForCallback;
                 let vendorDispatchSuccessful = false;
 
                 try {
-                    // 1. Call the vendor API to dispatch the message (email)
-                    // Personalize message_template if needed, e.g., message_template.replace('{{name}}', customer.name)
                     const personalizedMessage = message_template.replace(/{{name}}/gi, customer.name || 'Valued Customer');
-
-                    // The customer object from 'audience' should have 'email' and 'name'
                     const vendorResponse = await vendorAPI.sendMessageToVendor(customer, personalizedMessage);
 
                     if (vendorResponse.status === "DISPATCH_SUCCESSFUL") {
-                        deliveryStatusForCallback = "SENT"; // Assume SENT if Brevo accepted it for now
+                        deliveryStatusForCallback = "SENT";
                         vendorDispatchSuccessful = true;
                     } else {
                         // This covers "DISPATCH_FAILED" and "FAILED_NO_EMAIL"

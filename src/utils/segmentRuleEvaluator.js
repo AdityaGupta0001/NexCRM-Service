@@ -6,8 +6,8 @@ function buildMongoQueryFromRules(rules) {
     }
 
     const mongoConditions = rules.conditions.map(condition => {
-        if (condition.logic) { // Nested group
-            return buildMongoQueryFromRules(condition); // Recursive call for nested rules
+        if (condition.logic) {
+            return buildMongoQueryFromRules(condition);
         } else { // Simple condition
             const { field, operator, value } = condition;
             let queryValue = value;

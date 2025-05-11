@@ -19,7 +19,6 @@ const CustomerSchema = new Schema({
     last_visit: { type: Date },
     total_spend: { type: Number, default: 0 },
     visits: { type: Number, default: 0 }, // Number of orders or distinct visit days
-    // Add any other fields relevant for segmentation
     custom_attributes: { type: Map, of: Schema.Types.Mixed } // For additional dynamic fields
 }, { timestamps: true });
 
