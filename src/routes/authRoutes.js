@@ -13,6 +13,6 @@ router.get('/google/callback', authController.googleCallback);
 router.post('/logout', isAuthenticated, authController.logout); // Changed to POST as per REST best practices for actions
 
 // Get current user
-router.get('/me', authController.getCurrentUser);
+router.get('/me', isAuthenticated, authController.getCurrentUser);
 
 module.exports = router;
