@@ -18,7 +18,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-    origin: 'http://localhost:8080', 
+    origin: 'https://nexcrm.onrender.com', 
     credentials: true              
 }));
 

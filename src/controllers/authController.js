@@ -6,14 +6,14 @@ const googleLogin = passport.authenticate("google", {
 
 const googleCallback = (req, res, next) => {
 
-    passport.authenticate('google', { failureRedirect: 'http://localhost:8080/login?error=google_auth_failed' }, (err, user, info) => {
+    passport.authenticate('google', { failureRedirect: 'https://nexcrm.onrender.com/login?error=google_auth_failed' }, (err, user, info) => {
         if (err) {
             console.error("[GoogleCallback] Passport authentication error:", err);
-            return res.redirect('http://localhost:8080/login?error=server_error');
+            return res.redirect('https://nexcrm.onrender.com/login?error=server_error');
         }
         if (!user) {
             console.warn("[GoogleCallback] No user returned from Google strategy. Info:", info);
-            return res.redirect('http://localhost:8080/login?error=authentication_failed');
+            return res.redirect('https://nexcrm.onrender.com/login?error=authentication_failed');
         }
 
         console.log("[GoogleCallback] User received from Google strategy:", user.displayName, user.id);
@@ -21,7 +21,7 @@ const googleCallback = (req, res, next) => {
         req.logIn(user, (loginErr) => {
             if (loginErr) {
                 console.error("[GoogleCallback] Error during req.logIn:", loginErr);
-                return res.redirect('http://localhost:8080/login?error=session_login_error');
+                return res.redirect('https://nexcrm.onrender.com/login?error=session_login_error');
             }
             console.log("[GoogleCallback] req.logIn successful!");
             console.log("[GoogleCallback] req.session AFTER logIn:", JSON.stringify(req.session, null, 2));
@@ -31,10 +31,10 @@ const googleCallback = (req, res, next) => {
             req.session.save(saveErr => {
                 if (saveErr) {
                     console.error("[GoogleCallback] Error saving session after req.logIn:", saveErr);
-                    return res.redirect('http://localhost:8080/login?error=session_save_error');
+                    return res.redirect('https://nexcrm.onrender.com/login?error=session_save_error');
                 }
                 console.log("[GoogleCallback] Session saved successfully after req.logIn.");
-                return res.redirect('http://localhost:8080/dashboard');
+                return res.redirect('https://nexcrm.onrender.com/dashboard');
             });
         });
     })(req, res, next);
