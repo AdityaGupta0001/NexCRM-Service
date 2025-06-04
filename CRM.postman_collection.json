@@ -1,0 +1,1526 @@
+{
+	"info": {
+		"_postman_id": "d202a21e-74d9-4bf1-9cfd-bccba37aa4c3",
+		"name": "CRM",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38507043",
+		"_collection_link": "https://sheild-testing.postman.co/workspace/SHEild-Testing-Workspace~5ee2c4e5-601e-44d3-8ce2-4a899bb56bf6/collection/38507043-d202a21e-74d9-4bf1-9cfd-bccba37aa4c3?action=share&source=collection_link&creator=38507043"
+	},
+	"item": [
+		{
+			"name": "/auth/me",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s:1lt-_5-OIgqPI38weIUwesbsJ9ObfnoE.0JD382sz23zyNCDjLiZ80UM1qtrlnOuxHfb4lrfFiVs",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/auth/me",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"auth",
+						"me"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s:1lt-_5-OIgqPI38weIUwesbsJ9ObfnoE.0JD382sz23zyNCDjLiZ80UM1qtrlnOuxHfb4lrfFiVs",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/auth/me",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"auth",
+								"me"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "193"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"c1-uto19Wk+wGeCil4eJ5zvRIyD7K0\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 12:01:46 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"_id\": \"6820891dddcfc10396c9d1b1\",\n    \"googleId\": \"107801709755579463879\",\n    \"displayName\": \"Aditya Gupta\",\n    \"email\": \"adityagdsc24@gmail.com\",\n    \"role\": \"admin\",\n    \"createdAt\": \"2025-05-11T11:25:17.110Z\",\n    \"__v\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "/api/data/customers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s%3AoDrhhCJwv_oDYf52mHyefoeZVzC-6iAW.oBuHCOe7zLL3pnAjbp657GBOTXYyDWVkXrNXQbW0A3A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"customer_id\": \"CUST001\",\r\n    \"name\": \"Alice Wonderland\",\r\n    \"email\": \"alice@example.com\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"last_visit\": \"2024-01-15T10:00:00.000Z\",\r\n    \"total_spend\": 1500,\r\n    \"visits\": 5,\r\n    \"custom_attributes\": {\r\n      \"loyalty_tier\": \"Gold\",\r\n      \"preferred_category\": \"Electronics\"\r\n    }\r\n  },\r\n  {\r\n    \"customer_id\": \"CUST002\",\r\n    \"name\": \"Bob The Builder\",\r\n    \"email\": \"bob@example.com\",\r\n    \"phone\": \"987-654-3210\",\r\n    \"last_visit\": \"2023-11-20T14:30:00.000Z\",\r\n    \"total_spend\": 850,\r\n    \"visits\": 3\r\n  }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/data/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"data",
+						"customers"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s%3AoDrhhCJwv_oDYf52mHyefoeZVzC-6iAW.oBuHCOe7zLL3pnAjbp657GBOTXYyDWVkXrNXQbW0A3A",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"customer_id\": \"CUST001\",\r\n    \"name\": \"Alice Wonderland\",\r\n    \"email\": \"alice@example.com\",\r\n    \"phone\": \"123-456-7890\",\r\n    \"last_visit\": \"2024-01-15T10:00:00.000Z\",\r\n    \"total_spend\": 1500,\r\n    \"visits\": 5,\r\n    \"custom_attributes\": {\r\n      \"loyalty_tier\": \"Gold\",\r\n      \"preferred_category\": \"Electronics\"\r\n    }\r\n  },\r\n  {\r\n    \"customer_id\": \"CUST002\",\r\n    \"name\": \"Bob The Builder\",\r\n    \"email\": \"bob@example.com\",\r\n    \"phone\": \"987-654-3210\",\r\n    \"last_visit\": \"2023-11-20T14:30:00.000Z\",\r\n    \"total_spend\": 850,\r\n    \"visits\": 3\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/data/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"data",
+								"customers"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "246"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"f6-WMF/efSHgBMRXh9OdwNtuRIXEO0\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 11:56:45 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Customers data processed successfully.\",\n    \"result\": {\n        \"insertedCount\": 0,\n        \"matchedCount\": 0,\n        \"modifiedCount\": 0,\n        \"deletedCount\": 0,\n        \"upsertedCount\": 2,\n        \"upsertedIds\": {\n            \"0\": \"6820907ccc5812ceacef78bd\",\n            \"1\": \"6820907ccc5812ceacef78be\"\n        },\n        \"insertedIds\": {}\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "/api/data/orders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s:4imdxgcYrKuKuGzYz_eliek98t38z6UB.BXRyoa822W9hVNmwYYQChYXi8YwUkPsVs90RpNNpOKg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"order_id\": \"ORD001\",\r\n    \"customer_id\": \"CUST001\", \r\n    \"date\": \"2024-05-01T10:00:00.000Z\",\r\n    \"amount\": 75.50\r\n  },\r\n  {\r\n    \"order_id\": \"ORD002\",\r\n    \"customer_id\": \"CUST002\",\r\n    \"date\": \"2024-05-03T12:30:00.000Z\",\r\n    \"amount\": 120.00\r\n  },\r\n  {\r\n    \"order_id\": \"ORD003\",\r\n    \"customer_id\": \"CUST001\",\r\n    \"date\": \"2024-05-10T15:45:00.000Z\",\r\n    \"amount\": 50.25\r\n  }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/data/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"data",
+						"orders"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s:4imdxgcYrKuKuGzYz_eliek98t38z6UB.BXRyoa822W9hVNmwYYQChYXi8YwUkPsVs90RpNNpOKg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"order_id\": \"ORD001\",\r\n    \"customer_id\": \"CUST001\", \r\n    \"date\": \"2024-05-01T10:00:00.000Z\",\r\n    \"amount\": 75.50\r\n  },\r\n  {\r\n    \"order_id\": \"ORD002\",\r\n    \"customer_id\": \"CUST002\",\r\n    \"date\": \"2024-05-03T12:30:00.000Z\",\r\n    \"amount\": 120.00\r\n  },\r\n  {\r\n    \"order_id\": \"ORD003\",\r\n    \"customer_id\": \"CUST001\",\r\n    \"date\": \"2024-05-10T15:45:00.000Z\",\r\n    \"amount\": 50.25\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/data/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"data",
+								"orders"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "91"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5b-qx5NCHNrw7rQ/maJ3QXG0mGZoB8\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 12:04:55 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Orders data uploaded and customers updated successfully.\",\n    \"successfulOrders\": 3\n}"
+				}
+			]
+		},
+		{
+			"name": "/api/segments/create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s:4imdxgcYrKuKuGzYz_eliek98t38z6UB.BXRyoa822W9hVNmwYYQChYXi8YwUkPsVs90RpNNpOKg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"High Value or Frequent Visitors\",\r\n  \"rules\": {\r\n    \"logic\": \"OR\",\r\n    \"conditions\": [\r\n      {\r\n        \"logic\": \"AND\",\r\n        \"conditions\": [\r\n          { \"field\": \"total_spend\", \"operator\": \">\", \"value\": 5000 },\r\n          { \"field\": \"visits\", \"operator\": \">=\", \"value\": 5 }\r\n        ]\r\n      },\r\n      { \"field\": \"visits\", \"operator\": \">\", \"value\": 10 }\r\n    ]\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/segments/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"segments",
+						"create"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s:4imdxgcYrKuKuGzYz_eliek98t38z6UB.BXRyoa822W9hVNmwYYQChYXi8YwUkPsVs90RpNNpOKg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"High Value or Frequent Visitors\",\r\n  \"rules\": {\r\n    \"logic\": \"OR\",\r\n    \"conditions\": [\r\n      {\r\n        \"logic\": \"AND\",\r\n        \"conditions\": [\r\n          { \"field\": \"total_spend\", \"operator\": \">\", \"value\": 5000 },\r\n          { \"field\": \"visits\", \"operator\": \">=\", \"value\": 5 }\r\n        ]\r\n      },\r\n      { \"field\": \"visits\", \"operator\": \">\", \"value\": 10 }\r\n    ]\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/segments/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"segments",
+								"create"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "509"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1fd-gyU9ue8dIL2K/zjqvTzgiSCJMbo\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 12:08:38 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Segment created successfully.\",\n    \"segment\": {\n        \"name\": \"High Value or Frequent Visitors\",\n        \"rules\": {\n            \"logic\": \"OR\",\n            \"conditions\": [\n                {\n                    \"logic\": \"AND\",\n                    \"conditions\": [\n                        {\n                            \"field\": \"total_spend\",\n                            \"operator\": \">\",\n                            \"value\": 5000\n                        },\n                        {\n                            \"field\": \"visits\",\n                            \"operator\": \">=\",\n                            \"value\": 5\n                        }\n                    ]\n                },\n                {\n                    \"field\": \"visits\",\n                    \"operator\": \">\",\n                    \"value\": 10\n                }\n            ]\n        },\n        \"createdBy\": \"6820891dddcfc10396c9d1b1\",\n        \"audience_size_snapshot\": 0,\n        \"_id\": \"68209346765b7d7bb568bad1\",\n        \"createdAt\": \"2025-05-11T12:08:38.607Z\",\n        \"updatedAt\": \"2025-05-11T12:08:38.607Z\",\n        \"__v\": 0\n    },\n    \"audienceSize\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "/api/segments/preview",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s:4imdxgcYrKuKuGzYz_eliek98t38z6UB.BXRyoa822W9hVNmwYYQChYXi8YwUkPsVs90RpNNpOKg",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"rules\": {\r\n    \"logic\": \"AND\",\r\n    \"conditions\": [\r\n      { \"field\": \"total_spend\", \"operator\": \">\", \"value\": 500 },\r\n      { \"field\": \"visits\", \"operator\": \">\", \"value\": 2 }\r\n    ]\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/segments/preview",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"segments",
+						"preview"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s:4imdxgcYrKuKuGzYz_eliek98t38z6UB.BXRyoa822W9hVNmwYYQChYXi8YwUkPsVs90RpNNpOKg",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"rules\": {\r\n    \"logic\": \"AND\",\r\n    \"conditions\": [\r\n      { \"field\": \"total_spend\", \"operator\": \">\", \"value\": 500 },\r\n      { \"field\": \"visits\", \"operator\": \">\", \"value\": 2 }\r\n    ]\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/segments/preview",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"segments",
+								"preview"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "18"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"12-AfFdgWr+3x1r4RvbDUYjoJyn7Bw\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 12:10:00 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"audienceSize\": 2\n}"
+				}
+			]
+		},
+		{
+			"name": "/api/segments",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s:4imdxgcYrKuKuGzYz_eliek98t38z6UB.BXRyoa822W9hVNmwYYQChYXi8YwUkPsVs90RpNNpOKg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/segments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"segments"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s:4imdxgcYrKuKuGzYz_eliek98t38z6UB.BXRyoa822W9hVNmwYYQChYXi8YwUkPsVs90RpNNpOKg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/segments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"segments"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "948"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"3b4-NbuBwz3R2ovV2mpxIk/tDVo1WS4\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 12:10:38 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"68209346765b7d7bb568bad1\",\n        \"name\": \"High Value or Frequent Visitors\",\n        \"rules\": {\n            \"logic\": \"OR\",\n            \"conditions\": [\n                {\n                    \"logic\": \"AND\",\n                    \"conditions\": [\n                        {\n                            \"field\": \"total_spend\",\n                            \"operator\": \">\",\n                            \"value\": 5000\n                        },\n                        {\n                            \"field\": \"visits\",\n                            \"operator\": \">=\",\n                            \"value\": 5\n                        }\n                    ]\n                },\n                {\n                    \"field\": \"visits\",\n                    \"operator\": \">\",\n                    \"value\": 10\n                }\n            ]\n        },\n        \"createdBy\": {\n            \"_id\": \"6820891dddcfc10396c9d1b1\",\n            \"displayName\": \"Aditya Gupta\",\n            \"email\": \"adityagdsc24@gmail.com\"\n        },\n        \"audience_size_snapshot\": 0,\n        \"createdAt\": \"2025-05-11T12:08:38.607Z\",\n        \"updatedAt\": \"2025-05-11T12:08:38.607Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"6820933c765b7d7bb568bacd\",\n        \"name\": \"High Spenders Recent\",\n        \"rules\": {\n            \"logic\": \"AND\",\n            \"conditions\": [\n                {\n                    \"field\": \"total_spend\",\n                    \"operator\": \">\",\n                    \"value\": 1000\n                },\n                {\n                    \"field\": \"last_visit\",\n                    \"operator\": \">=\",\n                    \"value\": \"2024-03-01\"\n                }\n            ]\n        },\n        \"createdBy\": {\n            \"_id\": \"6820891dddcfc10396c9d1b1\",\n            \"displayName\": \"Aditya Gupta\",\n            \"email\": \"adityagdsc24@gmail.com\"\n        },\n        \"audience_size_snapshot\": 1,\n        \"createdAt\": \"2025-05-11T12:08:28.106Z\",\n        \"updatedAt\": \"2025-05-11T12:08:28.106Z\",\n        \"__v\": 0\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "/api/segments/:id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s:4imdxgcYrKuKuGzYz_eliek98t38z6UB.BXRyoa822W9hVNmwYYQChYXi8YwUkPsVs90RpNNpOKg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/segments/6820933c765b7d7bb568bacd",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"segments",
+						"6820933c765b7d7bb568bacd"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s:4imdxgcYrKuKuGzYz_eliek98t38z6UB.BXRyoa822W9hVNmwYYQChYXi8YwUkPsVs90RpNNpOKg",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/segments/6820933c765b7d7bb568bacd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"segments",
+								"6820933c765b7d7bb568bacd"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "437"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1b5-cR2KRp6N9JiE2/yBLfJGKQG6aA0\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 12:11:41 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"_id\": \"6820933c765b7d7bb568bacd\",\n    \"name\": \"High Spenders Recent\",\n    \"rules\": {\n        \"logic\": \"AND\",\n        \"conditions\": [\n            {\n                \"field\": \"total_spend\",\n                \"operator\": \">\",\n                \"value\": 1000\n            },\n            {\n                \"field\": \"last_visit\",\n                \"operator\": \">=\",\n                \"value\": \"2024-03-01\"\n            }\n        ]\n    },\n    \"createdBy\": {\n        \"_id\": \"6820891dddcfc10396c9d1b1\",\n        \"displayName\": \"Aditya Gupta\",\n        \"email\": \"adityagdsc24@gmail.com\"\n    },\n    \"audience_size_snapshot\": 1,\n    \"createdAt\": \"2025-05-11T12:08:28.106Z\",\n    \"updatedAt\": \"2025-05-11T12:08:28.106Z\",\n    \"__v\": 0\n}"
+				}
+			]
+		},
+		{
+			"name": "/api/segments/:id/audience",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s:sFVh-dDKR37QenxnKu9aj6iQn2DHzMN8.N49WqAzJF/2Mepkqd3W3CycUFTxsWlcoaS0KBQVItt4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/segments/6820933c765b7d7bb568bacd/audience",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"segments",
+						"6820933c765b7d7bb568bacd",
+						"audience"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s:sFVh-dDKR37QenxnKu9aj6iQn2DHzMN8.N49WqAzJF/2Mepkqd3W3CycUFTxsWlcoaS0KBQVItt4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/segments/6820933c765b7d7bb568bacd/audience",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"segments",
+								"6820933c765b7d7bb568bacd",
+								"audience"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "406"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"196-B+J5Zz2Idu/j2w7JByotP8nvUJc\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 12:13:40 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"audienceCount\": 1,\n    \"audience\": [\n        {\n            \"_id\": \"6820907ccc5812ceacef78bd\",\n            \"customer_id\": \"CUST001\",\n            \"__v\": 0,\n            \"createdAt\": \"2025-05-11T11:56:45.649Z\",\n            \"custom_attributes\": {\n                \"loyalty_tier\": \"Gold\",\n                \"preferred_category\": \"Electronics\"\n            },\n            \"email\": \"alice@example.com\",\n            \"last_visit\": \"2024-05-10T15:45:00.000Z\",\n            \"name\": \"Alice Wonderland\",\n            \"phone\": \"123-456-7890\",\n            \"total_spend\": 1625.75,\n            \"updatedAt\": \"2025-05-11T12:04:55.285Z\",\n            \"visits\": 7\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "/api/campaigns/send",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s:sFVh-dDKR37QenxnKu9aj6iQn2DHzMN8.N49WqAzJF/2Mepkqd3W3CycUFTxsWlcoaS0KBQVItt4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"segment_id\": \"6820933c765b7d7bb568bacd\", \r\n  \"message_template\": \"Dear Customer! We miss you. Here's a 10% off coupon: MISSYOU10\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/campaigns/send",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"campaigns",
+						"send"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s:sFVh-dDKR37QenxnKu9aj6iQn2DHzMN8.N49WqAzJF/2Mepkqd3W3CycUFTxsWlcoaS0KBQVItt4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"segment_id\": \"6820933c765b7d7bb568bacd\", \r\n  \"message_template\": \"Dear Customer! We miss you. Here's a 10% off coupon: MISSYOU10\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/campaigns/send",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"campaigns",
+								"send"
+							]
+						}
+					},
+					"status": "Accepted",
+					"code": 202,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "127"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"7f-qUm51LO58UNHWKDy/sEZlfcxaY4\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 12:19:36 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Campaign accepted and processing initiated.\",\n    \"campaign_id\": \"b265c47c-05dc-4697-a7f0-2b2a3a2a27e6\",\n    \"audienceSize\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "/api/campaigns",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s:sFVh-dDKR37QenxnKu9aj6iQn2DHzMN8.N49WqAzJF/2Mepkqd3W3CycUFTxsWlcoaS0KBQVItt4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/campaigns",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"campaigns"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s:sFVh-dDKR37QenxnKu9aj6iQn2DHzMN8.N49WqAzJF/2Mepkqd3W3CycUFTxsWlcoaS0KBQVItt4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/campaigns",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"campaigns"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "314"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"13a-YrR12jA77bdclF5/FDV5QTZs/Yg\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 12:20:25 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"campaign_id\": \"b265c47c-05dc-4697-a7f0-2b2a3a2a27e6\",\n        \"segment_name\": \"High Spenders Recent\",\n        \"message_template\": \"Dear Customer! We miss you. Here's a 10% off coupon: MISSYOU10\",\n        \"audience_size\": 1,\n        \"status_counts\": {\n            \"SENT\": 1,\n            \"FAILED\": 0,\n            \"PENDING\": 0\n        },\n        \"created_at\": \"2025-05-11T12:19:36.261Z\",\n        \"created_by\": \"Aditya Gupta\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "/api/campaigns/delivery-receipt",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s:sFVh-dDKR37QenxnKu9aj6iQn2DHzMN8.N49WqAzJF/2Mepkqd3W3CycUFTxsWlcoaS0KBQVItt4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"campaign_id\": \"b265c47c-05dc-4697-a7f0-2b2a3a2a27e6\", \r\n  \"customer_id\": \"CUST001\", \r\n  \"status\": \"SENT\", \r\n  \"timestamp\": \"2024-05-10T10:05:00.000Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/campaigns/delivery-receipt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"campaigns",
+						"delivery-receipt"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s:sFVh-dDKR37QenxnKu9aj6iQn2DHzMN8.N49WqAzJF/2Mepkqd3W3CycUFTxsWlcoaS0KBQVItt4",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"campaign_id\": \"b265c47c-05dc-4697-a7f0-2b2a3a2a27e6\", \r\n  \"customer_id\": \"CUST001\", \r\n  \"status\": \"SENT\", \r\n  \"timestamp\": \"2024-05-10T10:05:00.000Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/campaigns/delivery-receipt",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"campaigns",
+								"delivery-receipt"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "82"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"52-ZWpMMoBQWu5T1hFDfUsU/gmLzq0\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 12:21:59 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"error\": \"Status for customer CUST001 already processed or not in PENDING state.\"\n}"
+				}
+			]
+		},
+		{
+			"name": "/api/ai/parse-segment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s:fB2nILhE3-m-22MJyrA2laU_PH3z3Bap.dokkasN3qy14VkmEidvegY2sv76//kKesbNontAmVWo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"prompt\": \"Customers who spent more than 5000 rupees and visited us at least 3 times in the last year\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/ai/parse-segment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"ai",
+						"parse-segment"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s:fB2nILhE3-m-22MJyrA2laU_PH3z3Bap.dokkasN3qy14VkmEidvegY2sv76//kKesbNontAmVWo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"prompt\": \"Customers who spent more than 5000 rupees and visited us at least 3 times in the last year\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/ai/parse-segment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"ai",
+								"parse-segment"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "217"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"d9-kiVUjR1Epu5Flqfbpn6svwXgjMw\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 12:24:50 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"logic\": \"AND\",\n    \"conditions\": [\n        {\n            \"field\": \"total_spend\",\n            \"operator\": \">\",\n            \"value\": 5000\n        },\n        {\n            \"logic\": \"AND\",\n            \"conditions\": [\n                {\n                    \"field\": \"visits\",\n                    \"operator\": \">=\",\n                    \"value\": 3\n                },\n                {\n                    \"field\": \"last_visit\",\n                    \"operator\": \"<\",\n                    \"value\": \"2024-05-11\"\n                }\n            ]\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "/api/ai/message-suggestions",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s:fB2nILhE3-m-22MJyrA2laU_PH3z3Bap.dokkasN3qy14VkmEidvegY2sv76//kKesbNontAmVWo",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"objective\": \"Re-engage customers who haven't purchased in 90 days\",\r\n  \"segmentDescription\": \"Customers with no purchases in the last 3 months but were previously active.\",\r\n  \"tone\": \"Friendly and slightly urgent\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/ai/message-suggestions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"ai",
+						"message-suggestions"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s:fB2nILhE3-m-22MJyrA2laU_PH3z3Bap.dokkasN3qy14VkmEidvegY2sv76//kKesbNontAmVWo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"objective\": \"Re-engage customers who haven't purchased in 90 days\",\r\n  \"segmentDescription\": \"Customers with no purchases in the last 3 months but were previously active.\",\r\n  \"tone\": \"Friendly and slightly urgent\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/ai/message-suggestions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"ai",
+								"message-suggestions"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "387"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"183-Ed5E3Ad2vpTYf2MNRD+RS7K8OsI\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 12:26:20 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    \"Hi again! We've missed you! It's been 90 days since your last purchase. Come back and explore our new arrivals!\",\n    \"Don't forget about us! You were a valued customer, but we haven't seen you in a while. Ready to come back to your favorite store?\",\n    \"Time flies! It's been 3 months since your last purchase. We've got new deals and surprises waiting for you. Come back and see what's new!\"\n]"
+				}
+			]
+		},
+		{
+			"name": "/api/data/customers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s%3A42vv-k5F9mzgL8IOagYjsRsyGYLXHJO0.d1MO8cgkLjilXKBZhGTNY5dZQy1R5YWp58IgmEqO29c",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/data/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"data",
+						"customers"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s%3A42vv-k5F9mzgL8IOagYjsRsyGYLXHJO0.d1MO8cgkLjilXKBZhGTNY5dZQy1R5YWp58IgmEqO29c",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/data/customers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"data",
+								"customers"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "http://localhost:8080"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "678"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2a6-AOTaDx6dRgU2z5rPxqVZF0BRoF4\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 22:04:20 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"6820907ccc5812ceacef78bd\",\n        \"customer_id\": \"CUST001\",\n        \"__v\": 0,\n        \"createdAt\": \"2025-05-11T11:56:45.649Z\",\n        \"custom_attributes\": {\n            \"loyalty_tier\": \"Gold\",\n            \"preferred_category\": \"Electronics\"\n        },\n        \"email\": \"blasternew6000@gmail.com\",\n        \"last_visit\": \"2024-05-10T15:45:00.000Z\",\n        \"name\": \"Alice Wonderland\",\n        \"phone\": \"123-456-7890\",\n        \"total_spend\": 1625.75,\n        \"updatedAt\": \"2025-05-11T12:04:55.285Z\",\n        \"visits\": 7\n    },\n    {\n        \"_id\": \"6820907ccc5812ceacef78be\",\n        \"customer_id\": \"CUST002\",\n        \"__v\": 0,\n        \"createdAt\": \"2025-05-11T11:56:45.649Z\",\n        \"email\": \"adityagenai24@gmail.com\",\n        \"last_visit\": \"2024-05-03T12:30:00.000Z\",\n        \"name\": \"Bob The Builder\",\n        \"phone\": \"987-654-3210\",\n        \"total_spend\": 970,\n        \"updatedAt\": \"2025-05-11T12:04:54.886Z\",\n        \"visits\": 4\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "/api/data/orders",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "cookie",
+						"value": "connect.sid=s%3Akq9kpqB6Lm9SxPmnp4_Tt66H314rz87X.OaV9QYNAfdRfG6RQxfK1ob8x8smuYIcQklii06uU%2B9I",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/data/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"data",
+						"orders"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "cookie",
+								"value": "connect.sid=s%3Akq9kpqB6Lm9SxPmnp4_Tt66H314rz87X.OaV9QYNAfdRfG6RQxfK1ob8x8smuYIcQklii06uU%2B9I",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/data/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"data",
+								"orders"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "http://localhost:8080"
+						},
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "808"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"328-Pmj8Vvb9Jc7BMh1cDLl5rr+6YeY\""
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 11 May 2025 19:16:47 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"_id\": \"68209266765b7d7bb568bac0\",\n        \"order_id\": \"ORD001\",\n        \"customer_mongo_id\": \"6820907ccc5812ceacef78bd\",\n        \"customer_id_external\": \"CUST001\",\n        \"date\": \"2024-05-01T10:00:00.000Z\",\n        \"amount\": 75.5,\n        \"createdAt\": \"2025-05-11T12:04:54.385Z\",\n        \"updatedAt\": \"2025-05-11T12:04:54.385Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"68209266765b7d7bb568bac4\",\n        \"order_id\": \"ORD002\",\n        \"customer_mongo_id\": \"6820907ccc5812ceacef78be\",\n        \"customer_id_external\": \"CUST002\",\n        \"date\": \"2024-05-03T12:30:00.000Z\",\n        \"amount\": 120,\n        \"createdAt\": \"2025-05-11T12:04:54.778Z\",\n        \"updatedAt\": \"2025-05-11T12:04:54.778Z\",\n        \"__v\": 0\n    },\n    {\n        \"_id\": \"68209267765b7d7bb568bac8\",\n        \"order_id\": \"ORD003\",\n        \"customer_mongo_id\": \"6820907ccc5812ceacef78bd\",\n        \"customer_id_external\": \"CUST001\",\n        \"date\": \"2024-05-10T15:45:00.000Z\",\n        \"amount\": 50.25,\n        \"createdAt\": \"2025-05-11T12:04:55.186Z\",\n        \"updatedAt\": \"2025-05-11T12:04:55.186Z\",\n        \"__v\": 0\n    }\n]"
+				}
+			]
+		}
+	]
+}
